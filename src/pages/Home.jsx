@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link, Outlet } from 'react-router-dom';
 import illustration from '../assets/illustration.png';
 
 function Home(props) {
@@ -16,7 +17,20 @@ function Home(props) {
                     <img className='img-fluid' src={illustration} alt="illustration" />
                 </div>
 
-                <div className='col-lg-6 d-flex flex-column align-items-center justify-content-center h-100 text-white'></div>
+                <div className='col-lg-6 d-flex flex-column align-items-center justify-content-center h-100 text-white'>
+
+                    <div className='card w-50'>
+                        <div className='card-header d-flex border-0 p-0'>
+                            <Link to="/login" className='w-50 py-2 text-center text-primary text-decoration-none fw-bold'>Login</Link>
+
+                            <Link to="/register" className='w-50 py-2 text-center text-white bg-primary text-decoration-none fw-bold'>Register</Link>
+                        </div>
+                        <div className='card-body'>
+                            <Outlet />
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     );
