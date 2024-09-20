@@ -1,0 +1,23 @@
+{
+  "users": [
+    {
+      "username": "Vipin",
+      "email": "vipin@gmail.com",
+      "password": "admin",
+      "id": 1
+    },
+    {
+      "username": "Vipin",
+      "email": "vipin@gmail.com",
+      "password": "admin",
+      "id": 2
+    },
+    {
+      "username": "Abhay",
+      "email": "abhay@gmail.com",
+      "password": "admin",
+      "id": 3
+    }
+  ],
+  "tasks": []
+}
