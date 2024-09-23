@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 function Register(props) {
+    // useNavigate hook is used for redirection in a function.
+    const navigate = useNavigate();
+
+
     const [formData, setFormData] = useState(null);
     const handleChange = (e) => {
         let { name, value } = e.target;
@@ -23,14 +28,20 @@ function Register(props) {
             },
             body: JSON.stringify(formData)
         }
-
-
-
-        const response = await fetch("http://localhost:5000/users", config);
-        if (response.status === 201) {
-            alert("successfully registered");
+        const checkUser = await fetch(`http://localhost:5000/users?email=${formData.email}`, { method: "GET" })
+        const user = await checkUser.json();
+        if (user.length > 0) {
+            alert("user already exist");
         } else {
-            alert("something went wrong");
+            const response = await fetch("http://localhost:5000/users", config);
+            const user = await response.json();
+            if (response.status === 201) {
+                localStorage.setItem("todouser", JSON.stringify(user));
+                alert("successfully registered");
+                navigate("/task-list");
+            } else {
+                alert("something went wrong");
+            }
         }
     }
 
