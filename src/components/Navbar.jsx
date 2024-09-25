@@ -1,8 +1,14 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 import logo from '../assets/logo.png';
 
 function Navbar(props) {
+    const [user, setUser] = useState(null);
+
+    useEffect(() => {
+        let localUser = JSON.parse(localStorage.getItem("todouser"));
+        setUser(localUser);
+    }, []);
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary fixed-top">
             <div className="container-fluid">
@@ -27,7 +33,7 @@ function Navbar(props) {
                             <Link className="nav-link" to="/task-list">Task List</Link>
                         </li>
                         <li className="nav-item">
-                            <Link className="nav-link" to="/profile">Profile</Link>
+                            <Link className="nav-link" to="/profile">{user?.username}</Link>
                         </li>
                         <li className="nav-item dropdown">
                             <Link className="nav-link dropdown-toggle" to="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">

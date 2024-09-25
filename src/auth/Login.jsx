@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
 function Login(props) {
+
     const navigate = useNavigate();
     const [formData, setFormData] = useState(null);
     const handleChange = (e) => {
@@ -21,6 +22,7 @@ function Login(props) {
         if (users.length > 0) {
             localStorage.setItem("todouser", JSON.stringify(users[0]));
             alert("user found");
+
             navigate("/task-list");
         } else {
             alert("email/password incorrect");

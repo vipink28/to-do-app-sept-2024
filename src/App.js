@@ -11,6 +11,8 @@ import Profile from './pages/Profile';
 import TaskList from './pages/TaskList';
 
 function App() {
+
+
   return (
     // Routes setup using react router dom
     <BrowserRouter>
