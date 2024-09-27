@@ -1,10 +1,14 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from './AuthContext';
 
 function Login(props) {
+    const { login } = useContext(AuthContext);
 
     const navigate = useNavigate();
+
     const [formData, setFormData] = useState(null);
+
     const handleChange = (e) => {
         let { name, value } = e.target;
         setFormData((prev) => {
@@ -15,18 +19,8 @@ function Login(props) {
         })
     }
 
-
-    const handleSubmit = async () => {
-        const response = await fetch(`http://localhost:5000/users?email=${formData.email}&password=${formData.password}`, { method: "GET" });
-        const users = await response.json();
-        if (users.length > 0) {
-            localStorage.setItem("todouser", JSON.stringify(users[0]));
-            alert("user found");
-
-            navigate("/task-list");
-        } else {
-            alert("email/password incorrect");
-        }
+    const handleSubmit = () => {
+        login(formData);
     }
 
     return (

@@ -1,7 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AuthContext from './AuthContext';
 
 function Register(props) {
+    const { register } = useContext(AuthContext);
+
     // useNavigate hook is used for redirection in a function.
     const navigate = useNavigate();
 
@@ -17,35 +20,9 @@ function Register(props) {
         })
     }
 
-
-    const handleSubmit = async () => {
-        // api request in vanilla javascript
-        // in vanilla javascript we can use fetch() method to send request to an api
-        let config = {
-            method: "POST",
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(formData)
-        }
-        const checkUser = await fetch(`http://localhost:5000/users?email=${formData.email}`, { method: "GET" })
-        const user = await checkUser.json();
-        if (user.length > 0) {
-            alert("user already exist");
-        } else {
-            const response = await fetch("http://localhost:5000/users", config);
-            const user = await response.json();
-            if (response.status === 201) {
-                localStorage.setItem("todouser", JSON.stringify(user));
-                alert("successfully registered");
-                navigate("/task-list");
-            } else {
-                alert("something went wrong");
-            }
-        }
+    const handleSubmit = () => {
+        register(formData);
     }
-
-
 
     return (
         <div className='py-2'>
