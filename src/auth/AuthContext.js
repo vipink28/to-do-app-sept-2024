@@ -50,16 +50,27 @@ export const AuthProvider = ({ children }) => {
         }
     }
 
-    const checkUserFromDatabase = async (formData) => {
-        const response = await fetch(`http://localhost:5000/users?email=${formData.email}`, { method: "GET" });
+    const checkUserFromDatabase = async (email) => {
+        const response = await fetch(`http://localhost:5000/users?email=${email}`, { method: "GET" });
         const user = await response.json();
-        console.log(user);
+        if (user.length > 0) {
+            setUser(user[0]);
+        } else {
+            localStorage.removeItem("todouser");
+        }
     }
 
+    const logout = () => {
+        localStorage.removeItem("todouser");
+        setUser(null);
+        navigate("/");
+    }
 
     useEffect(() => {
         let localUser = JSON.parse(localStorage.getItem("todouser"));
-        setUser(localUser);
+        if (localUser) {
+            checkUserFromDatabase(localUser.email)
+        }
     }, []);
 
 
@@ -67,7 +78,8 @@ export const AuthProvider = ({ children }) => {
         <AuthContext.Provider value={{
             register,
             login,
-            user
+            user,
+            logout
         }}>
             {children}
         </AuthContext.Provider>
