@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import './App.css';
 import { AuthProvider } from './auth/AuthContext';
 import Login from './auth/Login';
+import ProtetecedRoute from './auth/ProtetecedRoute';
 import Register from './auth/Register';
 import Navbar from './components/Navbar';
 import About from './pages/About';
@@ -26,7 +27,7 @@ function App() {
             <Route path='/register' element={<Register />}></Route>
           </Route>
           <Route path='/about' element={<About />}></Route>
-          <Route path='/task-list' element={<TaskList />}></Route>
+          <Route path='/task-list' element={<ProtetecedRoute><TaskList /></ProtetecedRoute>}></Route>
           <Route path='/create-task' element={<CreateTask />}></Route>
           <Route path='/profile' element={<Profile />}></Route>
           <Route path='*' element={<PageNotFound />}></Route>
