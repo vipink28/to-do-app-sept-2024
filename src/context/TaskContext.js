@@ -1,34 +1,71 @@
-import { createContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
+import AuthContext from "../auth/AuthContext";
 
 const TaskContext = createContext();
 
-// add Task
-const addTask = async (formData) => {
-    const config = {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify(formData)
-    }
 
-    try {
-        const response = await fetch(`http://localhost:5000/tasks`, config);
-        if (response.status === 201) {
-            alert("task created")
-        } else {
-            alert("something went wrong")
-        }
-    } catch (error) {
-        console.log(error);
-    }
-}
 
 
 export const TaskProvider = ({ children }) => {
+    const { user } = useContext(AuthContext);
+    const [allTasks, setAllTasks] = useState(null);
+    const [recentTasks, setRecentTasks] = useState(null);
+    const [latestTask, setLatestTask] = useState(null);
+
+    // add Task
+    const addTask = async (formData) => {
+        const config = {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(formData)
+        }
+
+        try {
+            const response = await fetch(`http://localhost:5000/tasks`, config);
+            if (response.status === 201) {
+                alert("task created")
+            } else {
+                alert("something went wrong")
+            }
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+    // get all tasks
+
+    const getTasks = async (id) => {
+        try {
+            const response = await fetch(`http://localhost:5000/tasks?userid=${id}`, { method: "GET" });
+            if (response.ok) {
+                const tasks = await response.json();
+                setAllTasks(tasks);
+                let recent = tasks.slice(-3);
+                setRecentTasks(recent);
+                let latestTask = tasks[tasks.length - 1];
+                setLatestTask(latestTask);
+            }
+
+        } catch (error) {
+            console.log(error);
+        }
+    }
+
+
+    useEffect(() => {
+        if (user) {
+            getTasks(user.id)
+        }
+    }, [user])
+
     return (
         <TaskContext.Provider value={{
-            addTask
+            addTask,
+            allTasks,
+            latestTask,
+            recentTasks
         }}>
             {children}
         </TaskContext.Provider>
