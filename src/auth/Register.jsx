@@ -1,12 +1,8 @@
 import React, { useContext, useState } from 'react';
-import { useNavigate } from 'react-router-dom';
 import AuthContext from './AuthContext';
 
 function Register(props) {
     const { register } = useContext(AuthContext);
-
-    // useNavigate hook is used for redirection in a function.
-    const navigate = useNavigate();
 
 
     const [formData, setFormData] = useState(null);
