@@ -3,8 +3,11 @@ import AuthContext from '../auth/AuthContext';
 import TaskContext from '../context/TaskContext';
 
 function TaskForm(props) {
+    const { isUpdate } = props;
     const { addTask } = useContext(TaskContext);
     const { user } = useContext(AuthContext);
+
+
 
     const [formData, setFormData] = useState(null);
     const handleChange = (e) => {
@@ -25,7 +28,7 @@ function TaskForm(props) {
 
     return (
         <div className='py-3 w-50'>
-            <h2 className='text-white'>Create Task</h2>
+            <h2 className='text-white'>{isUpdate ? "Update Task" : "Create Task"}</h2>
             <div className='card p-3'>
                 <div className='mb-3'>
                     <label className='form-label'>Title</label>
@@ -40,7 +43,15 @@ function TaskForm(props) {
                     <input type='datetime-local' name='duedate' className='form-control' onChange={handleChange} />
                 </div>
                 <div className='mb-3'>
-                    <button onClick={handleSubmit} className='btn btn-primary'>Create Task</button>
+                    {
+                        isUpdate ?
+                            <>
+                                <button className='btn btn-primary'>Update Task</button>
+                                <button className='btn btn-warning ms-2'>Cancel</button>
+                            </>
+                            :
+                            <button onClick={handleSubmit} className='btn btn-primary'>Create Task</button>
+                    }
                 </div>
             </div>
         </div>

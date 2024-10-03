@@ -25,6 +25,10 @@ export const TaskProvider = ({ children }) => {
         try {
             const response = await fetch(`http://localhost:5000/tasks`, config);
             if (response.status === 201) {
+                //optional 
+                // const task = await response.json();
+                // setLatestTask(task);
+                getTasks(user.id);
                 alert("task created")
             } else {
                 alert("something went wrong")
@@ -43,7 +47,7 @@ export const TaskProvider = ({ children }) => {
                 const tasks = await response.json();
                 setAllTasks(tasks);
                 let recent = tasks.slice(-3);
-                setRecentTasks(recent);
+                setRecentTasks(recent.reverse());
                 let latestTask = tasks[tasks.length - 1];
                 setLatestTask(latestTask);
             }

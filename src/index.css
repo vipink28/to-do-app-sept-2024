@@ -9,3 +9,15 @@ body {
     height: 100%;
     padding-top: 78px;
 }
+
+.bg-primary {
+    background-color: #111727 !important;
+}
+
+.text-primary {
+    color: #111727 !important;
+}
+
+.btn-primary {
+    background-color: #111727 !important;
+}
