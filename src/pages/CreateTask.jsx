@@ -13,7 +13,7 @@ function CreateTask(props) {
         <div className='container-fluid h-100'>
             <div className='row align-items-center h-100'>
                 <div className='col-lg-6 d-flex flex-column align-items-center justify-content-center h-100 text-white bg-primary'>
-                    <TaskForm isUpdate={isUpdate} />
+                    <TaskForm isUpdate={isUpdate} data={latestTask} setIsUpdate={setIsUpdate} />
                 </div>
 
                 <div className='col-lg-6 d-flex flex-column align-items-center justify-content-center h-100 text-white'>
@@ -49,7 +49,7 @@ function CreateTask(props) {
                                 recentTasks ?
                                     recentTasks.map((task) => {
                                         return (
-                                            <div className='d-flex border border-warning p-2'>
+                                            <div key={task.id} className='d-flex border border-warning p-2'>
                                                 <p className='mb-0'>{task.title}</p>
                                                 <p className='mb-0 ms-auto'>{task.duedate}</p>
                                             </div>
