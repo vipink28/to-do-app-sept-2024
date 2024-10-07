@@ -3,6 +3,7 @@ import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import React, { useContext } from 'react';
 import { Link } from 'react-router-dom';
+import Popup from '../components/Popup';
 import TaskContext from '../context/TaskContext';
 
 function TaskList(props) {
@@ -35,13 +36,13 @@ function TaskList(props) {
                                         <div className='col-lg-4'>{task.description}</div>
                                         <div className='col-lg-2'>{task.duedate}</div>
                                         <div className='col-lg-2'>
-                                            <span className="px-2">
+                                            <span className="px-2" data-bs-toggle="modal" data-bs-target="#taskPopup">
                                                 <FontAwesomeIcon icon={faEye} />
                                             </span>
-                                            <span className="px-2">
+                                            <span className="px-2" data-bs-toggle="modal" data-bs-target="#taskPopup" >
                                                 <FontAwesomeIcon icon={faPenToSquare} />
                                             </span>
-                                            <span className="px-2">
+                                            <span className="px-2" data-bs-toggle="modal" data-bs-target="#taskPopup">
                                                 <FontAwesomeIcon icon={faTrash} />
                                             </span>
                                         </div>
@@ -51,6 +52,7 @@ function TaskList(props) {
                     }
                 </div>
             </div>
+            <Popup />
         </div>
     );
 }
