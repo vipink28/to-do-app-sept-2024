@@ -37,13 +37,13 @@ function TaskForm(props) {
     }
 
     useEffect(() => {
-        if (isUpdate) {
+        if (isUpdate && data) {
             setFormData(data);
         }
-    }, [isUpdate])
+    }, [isUpdate, data])
 
     return (
-        <div className='py-3 w-50'>
+        <div className='py-3'>
             <h2 className='text-white'>{isUpdate ? "Update Task" : "Create Task"}</h2>
             <div className='card p-3'>
                 <div className='mb-3'>
