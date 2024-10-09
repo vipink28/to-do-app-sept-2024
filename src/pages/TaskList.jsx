@@ -1,7 +1,7 @@
 import { faPenToSquare } from '@fortawesome/free-regular-svg-icons';
 import { faEye, faTrash } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React, { useContext, useReducer } from 'react';
+import React, { useContext, useEffect, useReducer, useState } from 'react';
 import { Link } from 'react-router-dom';
 import Popup from '../components/Popup';
 import TaskContext from '../context/TaskContext';
@@ -18,9 +18,20 @@ function TaskList(props) {
 
 
     const { allTasks } = useContext(TaskContext);
-
     const [state, dispatch] = useReducer(reducer, { type: null, data: null });
+    const [taskArray, setTaskArray] = useState(null);
 
+    useEffect(() => {
+        setTaskArray(allTasks);
+    }, [allTasks])
+
+    const handleSearch = (e) => {
+        let { value } = e.target;
+        const filteredArray = allTasks.filter((task) => (
+            task.title.toLowerCase().includes(value.toLowerCase())
+        ));
+        setTaskArray(filteredArray);
+    }
 
     return (
         <div className='container'>
@@ -28,6 +39,10 @@ function TaskList(props) {
                 <div className='d-flex mb-3 align-items-center'>
                     <h2>Tasks List</h2>
                     <Link className='btn btn-info ms-auto' to="/create-task">Create Task</Link>
+                </div>
+
+                <div className='py-2'>
+                    <input type='text' className='form-control' placeholder='Search Task' onChange={handleSearch} />
                 </div>
 
                 <div className='mt-3'>
@@ -40,8 +55,8 @@ function TaskList(props) {
                     </div>
 
                     {
-                        allTasks ?
-                            allTasks.map((task) => {
+                        taskArray ?
+                            taskArray.map((task) => {
                                 return (
                                     <div key={task.id} className='row p-2 mb-2 bg-dark rounded-1'>
                                         <div className='col-lg-1'>{task.id}</div>

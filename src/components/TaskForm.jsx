@@ -8,7 +8,7 @@ function TaskForm(props) {
         description: "",
         duedate: ""
     }
-    const { isUpdate, data, setIsUpdate } = props;
+    const { isUpdate, data, setIsUpdate, isPopup, closeBtn } = props;
     const { addTask, updateTask } = useContext(TaskContext);
     const { user } = useContext(AuthContext);
     const [formData, setFormData] = useState(init);
@@ -32,8 +32,12 @@ function TaskForm(props) {
         updateTask(formData);
     }
     const handleCancel = () => {
-        setIsUpdate(false);
-        setFormData(init);
+        if (!isPopup) {
+            setIsUpdate(false);
+            setFormData(init);
+        } else {
+            closeBtn.current.click();
+        }
     }
 
     useEffect(() => {
