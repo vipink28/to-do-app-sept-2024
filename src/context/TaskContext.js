@@ -23,7 +23,7 @@ export const TaskProvider = ({ children }) => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/tasks`, config);
+            const response = await fetch(`http://localhost:5001/tasks`, config);
             if (response.status === 201) {
                 //optional 
                 // const task = await response.json();
@@ -42,7 +42,7 @@ export const TaskProvider = ({ children }) => {
 
     const getTasks = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/tasks?userid=${id}`, { method: "GET" });
+            const response = await fetch(`http://localhost:5001/tasks?userid=${id}`, { method: "GET" });
             if (response.ok) {
                 const tasks = await response.json();
                 setAllTasks(tasks);
@@ -70,7 +70,7 @@ export const TaskProvider = ({ children }) => {
         }
 
         try {
-            const response = await fetch(`http://localhost:5000/tasks/${formData.id}`, config);
+            const response = await fetch(`http://localhost:5001/tasks/${formData.id}`, config);
             if (response.status === 200) {
                 getTasks(user.id);
                 alert("task updated")
@@ -87,7 +87,7 @@ export const TaskProvider = ({ children }) => {
 
     const deleteTask = async (id) => {
         try {
-            const response = await fetch(`http://localhost:5000/tasks/${id}`, { method: "DELETE" });
+            const response = await fetch(`http://localhost:5001/tasks/${id}`, { method: "DELETE" });
             if (response.status === 200) {
                 getTasks(user.id);
                 alert("task deleted")

@@ -6,7 +6,7 @@ const ProtetecedRoute = ({ children }) => {
     const navigate = useNavigate();
 
     const checkUserFromDatabase = async (email) => {
-        const response = await fetch(`http://localhost:5000/users?email=${email}`, { method: "GET" });
+        const response = await fetch(`http://localhost:5001/users?email=${email}`, { method: "GET" });
         const user = await response.json();
         if (user.length > 0) {
             setIsLoggedIn(true);
